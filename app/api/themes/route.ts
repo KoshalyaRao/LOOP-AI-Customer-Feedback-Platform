@@ -1,4 +1,4 @@
-export const = "force-dynamic";
+export const dynamic = "force-dynamic";
 import { NextResponse } from 'next/server';
 import { requireWorkspaceSession } from '@/lib/auth';
 import { db } from '@/lib/db';
