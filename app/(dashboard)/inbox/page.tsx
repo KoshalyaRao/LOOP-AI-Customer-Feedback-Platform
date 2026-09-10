@@ -1,7 +1,7 @@
 "use client";
 export const dynamic = "force-dynamic";
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { Suspense,useState, useEffect, useCallback } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { FeedbackTable } from '@/components/feedback/FeedbackTable';
 import { FeedbackDetailModal } from '@/components/feedback/FeedbackDetailModal';
@@ -10,7 +10,7 @@ import { Button } from '@/components/ui/Button';
 import { useToast } from '@/components/ui/Toast';
 import { Search, Filter, ChevronLeft, ChevronRight, RefreshCw } from 'lucide-react';
 
-export default function InboxPage() {
+function InboxContent() {
   const searchParams = useSearchParams();
   const initialTheme = searchParams.get('theme') || '';
 
@@ -229,5 +229,12 @@ export default function InboxPage() {
         onUpdate={fetchFeedback}
       />
     </div>
+  );
+}
+export default function InboxPage() {
+  return (
+    <Suspense fallback={<LoadingSkeleton count={6} height="h-16" />}>
+      <InboxContent />
+    </Suspense>
   );
 }
